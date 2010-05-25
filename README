@@ -1,0 +1,7 @@
+
+        pull_everything
+        ---------------
+
+        scans all subdirectorys recursively for git archives and pulls from origin master
+
+        

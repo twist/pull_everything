@@ -1,0 +1,21 @@
+#!/bin/bash
+
+if [ "$1" != "" ]
+then
+        cd $1
+fi
+
+if [ -e ".git" ]
+then
+        echo "found git repository in $1, pulling..."
+        git pull origin master
+fi
+for i in `ls *`
+do
+        if [ -d $i ]
+        then
+                pull_everything $i
+        fi
+done
+
+
