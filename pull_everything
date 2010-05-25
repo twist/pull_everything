@@ -7,8 +7,12 @@ fi
 
 if [ -e ".git" ]
 then
-        echo "found git repository in $1, pulling..."
-        git pull origin master
+        echo "found git repository in $1, scanning for branches..."
+        for branch in `git branch | awk '{print $2}'`
+        do
+                echo "found branch $branch"
+        done
+
 fi
 for i in `ls *`
 do
