@@ -7,19 +7,36 @@ fi
 
 if [ -e ".git" ]
 then
-        echo "found git repository in $1, scanning for branches..."
+        echo "found repository in $1, scanning for branches.."
+        #since git marks the current branch with a * and the shell will expand it, we need to
+        #read current and not current branches seperately
+        BRANCHES=""
+        for branch in `git branch | grep -v "\*"`
+        do
+               BRANCHES="$BRANCHES $branch" 
+        done
         for branch in `git branch | awk '{print $2}'`
         do
-                echo "found branch $branch"
+               BRANCHES="$BRANCHES $branch" 
         done
+        echo "found branches: $BRANCHES, pulling....."
+        for branch in $BRANCHES 
+        do
+               git pull origin $branch 
+        done
+        
 
+else
+        for i in `ls *`
+        do
+                if [ -d $i ]
+                then
+                        pull_everything $i
+                fi
+        done
 fi
-for i in `ls *`
-do
-        if [ -d $i ]
-        then
-                pull_everything $i
-        fi
-done
+
+
+
 
 
